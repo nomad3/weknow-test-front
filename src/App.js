@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import TodosList from "./components/topic-list.component";
-
-import logo from "./logo.png";
+import TopicList from "./components/topic-list.component";
 
 class App extends Component {
   render() {

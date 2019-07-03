@@ -17,10 +17,23 @@ export default class TopicList extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4000/')
-            .then(response => {
-                this.setState({topics: response.data});
+        fetch("http://23.239.16.36:4000/", {
+            method: 'POST',
+            headers: new Headers({
+                        'Content-Type': 'application/x-www-form-urlencoded', // <-- Specifying the Content-Type
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Credentials': 'true',
+                }),
+            body: "start=2018-02-01&end=2018-03-01" // <-- Post parameters
             })
+            .then((response) => response.text())
+            .then(response => {
+                this.setState({response: response.data});
+            })
+            .then((responseText) => {
+            alert(responseText);
+            })
+            
             .catch(function (error) {
                 console.log(error);
             })
@@ -28,7 +41,7 @@ export default class TopicList extends Component {
 
     topicList() {
         return this.state.topics.map(function(currentTopic, i) {
-            return <Todo todo={currentTopic} key={i} />;
+            return <Topic topic={currentTopic} key={i} />;
         });
     }
 
