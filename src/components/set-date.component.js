@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios' // Libreria para hacer peticiones
 
 const inputParsers = {
   date(input) {
@@ -14,26 +15,28 @@ const inputParsers = {
 };
 
 class MyForm extends React.Component {
+
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
     const form = event.target;
-    const data = new FormData(form);
-   
-    fetch('http://23.239.16.36:4000/', {
-        mode: 'no-cors',
-        method: 'POST',
-        headers: new Headers({
-            'Content-Type': 'application/x-www-form-urlencoded', // <-- Specifying the Content-Type
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials': 'true',
-        }),
-        body: data,
-    });
+    const formData = new FormData(form);
+    const start = form.start.value // Fecha inicio
+    const end = form.end.value // Fecha final
+
+    // Segundo metodo
+    // con async / await 
+    let { data } = await axios({
+        url: 'http://localhost:4000',
+        method: 'post',
+        data: { start, end }
+    })
+
+    console.log(data) // datos encontrados
   }
 
   render() {
