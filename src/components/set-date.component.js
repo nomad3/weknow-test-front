@@ -15,7 +15,7 @@ class MyForm extends React.Component {
     const end = form.end.value // END DATE
 
     let { data } = await axios({
-        url: 'http://localhost:4000',
+        url: 'http://23.239.16.36:4000',
         method: 'post',
         data: { start, end }
     })
