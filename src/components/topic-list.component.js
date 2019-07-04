@@ -4,8 +4,8 @@ import axios from 'axios';
 
 const Topic = props => (
     <tr>
-        <td>{props.topic.topic}</td>
-        <td>{props.topic.count}</td>
+        <td>{props.topic.value}</td>
+        <td>{props.count.value}</td>
     </tr>
 )
 
@@ -16,33 +16,9 @@ export default class TopicList extends Component {
         this.state = {topics: []};
     }
 
-    componentDidMount() {
-        fetch("http://23.239.16.36:4000/", {
-            method: 'POST',
-	    mode: 'no-cors',
-            headers: new Headers({
-                        'Content-Type': 'application/x-www-form-urlencoded', // <-- Specifying the Content-Type
-                        'Access-Control-Allow-Origin': '*',
-                        'Access-Control-Allow-Credentials': 'true',
-                }),
-            body: "start=2018-02-01&end=2018-03-01" // <-- Post parameters
-            })
-            .then((response) => response.text())
-            .then(response => {
-                this.setState({response: response.data});
-            })
-            .then((responseText) => {
-            alert(responseText);
-            })
-            
-            .catch(function (error) {
-                console.log(error);
-            })
-    }
-
     topicList() {
         return this.state.topics.map(function(currentTopic, i) {
-            return <Topic topic={currentTopic} key={i} />;
+            return <Topic topics={currentTopic} key={i} />;
         });
     }
 
@@ -53,16 +29,48 @@ export default class TopicList extends Component {
                 <table className="table table-striped" style={{ marginTop: 20 }}>
                     <thead>
                         <tr>
+                        <form onsubmit={this.formHandler(this.state.formFields)}>
+          <strong>Username:</strong> <br /> <input type="text" name="username" placeholder="Nathaniel" onChange={(e) => this.inputChangeHandler.call(this, e)} value={this.state.formFields.username} /> <br />
+          <strong>Email:</strong> <br /> <input type="email" name="email" placeholder="me@example.com" /> <br />
+          <strong>Confirm Email:</strong> <br /> <input type="email" name="confirmemail" placeholder="me@example.com" /> <br />
+          <strong>Password:</strong> <br /> <input type="password" name="password" placeholder="********" /> <br />
+          <strong>Confirm Password:</strong> <br /> <input type="password" name="confirmpassword" placeholder="********" /> <br /><br />
+          <button class="btn btn-primary">Register Account</button>
+        </form>
+                        </tr>
+                        <tr>
                             <th>Topic</th>
                             <th>Count</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        { this.topicList() }
+                        { this.topicList }
                     </tbody>
                 </table>
             </div>
         )
     }
 }
+inputChangeHandler(e) {
+    let formFields = {...this.state.formFields};
+    formFields[e.target.name] = e.target.value;
+    this.setState({
+     formFields
+    });
+   }
+ 
+   formHandler(formFields) {
+    axios.post('/api/register', formFields)
+      .then(function(response){
+        console.log(response);
+        //Perform action based on response
+    })
+      .catch(function(error){
+        console.log(error);
+        //Perform action based on error
+      });
+   }
+ }
+ 
+ export default Register

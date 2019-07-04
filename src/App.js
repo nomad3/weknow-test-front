@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import TopicList from "./components/topic-list.component";
+import MyForm from "./components/set-date.component";
+
 
 class App extends Component {
   render() {
     return (
       <Router>
-        <div className="container">
-          
+        <div className="container">  
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <Link to="/" className="navbar-brand">MERN-Stack Topic's count App</Link>
             <div className="collpase nav-collapse">
@@ -21,7 +21,7 @@ class App extends Component {
             </div>
           </nav>
 
-          <Route path="/" exact component={TopicList} />
+          <Route path="/" exact component={MyForm} />
         </div>
       </Router>
     );
