@@ -19,6 +19,7 @@ export default class TopicList extends Component {
     componentDidMount() {
         fetch("http://23.239.16.36:4000/", {
             method: 'POST',
+	    mode: 'no-cors',
             headers: new Headers({
                         'Content-Type': 'application/x-www-form-urlencoded', // <-- Specifying the Content-Type
                         'Access-Control-Allow-Origin': '*',
