@@ -1,18 +1,5 @@
 import React from 'react';
-import axios from 'axios' // Libreria para hacer peticiones
-
-const inputParsers = {
-  date(input) {
-    const [month, day, year] = input.split('/');
-    return `${year}-${month}-${day}`;
-  },
-  uppercase(input) {
-    return input.toUpperCase();
-  },
-  number(input) {
-    return parseFloat(input);
-  },
-};
+import axios from 'axios'
 
 class MyForm extends React.Component {
 
@@ -24,19 +11,16 @@ class MyForm extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     const form = event.target;
-    const formData = new FormData(form);
-    const start = form.start.value // Fecha inicio
-    const end = form.end.value // Fecha final
+    const start = form.start.value // START DATE
+    const end = form.end.value // END DATE
 
-    // Segundo metodo
-    // con async / await 
     let { data } = await axios({
         url: 'http://localhost:4000',
         method: 'post',
         data: { start, end }
     })
 
-    console.log(data) // datos encontrados
+    console.log(data) // response data from api
   }
 
   render() {
@@ -55,7 +39,7 @@ class MyForm extends React.Component {
           data-parse="date"
         />
 
-        <button>Send data!</button>
+        <button>Send Dates!</button>
       </form>
     );
   }
