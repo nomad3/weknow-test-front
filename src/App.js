@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import MyForm from "./components/set-date.component";
-
 
 class App extends Component {
   render() {
@@ -27,5 +25,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;
